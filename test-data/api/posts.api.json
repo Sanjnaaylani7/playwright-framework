@@ -1,0 +1,77 @@
+{
+  "defaults": { "maxResponseTimeMs": 5000, "contentType": "application/json" },
+  "cases": [
+    {
+      "id": "API_GET_01",
+      "name": "GET all posts returns the full list",
+      "method": "GET",
+      "endpoint": "/posts",
+      "expectedStatus": 200,
+      "schema": "post-list",
+      "expectedArrayLength": 100
+    },
+    {
+      "id": "API_GET_02",
+      "name": "GET a single post by id",
+      "method": "GET",
+      "endpoint": "/posts/1",
+      "expectedStatus": 200,
+      "schema": "post",
+      "expectedBody": { "id": 1, "userId": 1 }
+    },
+    {
+      "id": "API_GET_03",
+      "name": "GET posts filtered by userId",
+      "method": "GET",
+      "endpoint": "/posts?userId=1",
+      "expectedStatus": 200,
+      "schema": "post-list",
+      "expectedArrayLength": 10,
+      "expectedEveryItem": { "userId": 1 }
+    },
+    {
+      "id": "API_GET_04",
+      "name": "GET a non-existing post returns 404",
+      "method": "GET",
+      "endpoint": "/posts/99999",
+      "expectedStatus": 404
+    },
+    {
+      "id": "API_POST_01",
+      "name": "POST creates a new post",
+      "method": "POST",
+      "endpoint": "/posts",
+      "payload": { "title": "Playwright API test", "body": "Created by the automation framework", "userId": 7 },
+      "expectedStatus": 201,
+      "schema": "post",
+      "expectedBody": { "title": "Playwright API test", "body": "Created by the automation framework", "userId": 7 }
+    },
+    {
+      "id": "API_PUT_01",
+      "name": "PUT replaces an existing post",
+      "method": "PUT",
+      "endpoint": "/posts/1",
+      "payload": { "id": 1, "title": "Updated title", "body": "Updated body", "userId": 1 },
+      "expectedStatus": 200,
+      "schema": "post",
+      "expectedBody": { "id": 1, "title": "Updated title", "body": "Updated body", "userId": 1 }
+    },
+    {
+      "id": "API_PATCH_01",
+      "name": "PATCH partially updates a post",
+      "method": "PATCH",
+      "endpoint": "/posts/1",
+      "payload": { "title": "Patched title only" },
+      "expectedStatus": 200,
+      "schema": "post",
+      "expectedBody": { "id": 1, "title": "Patched title only" }
+    },
+    {
+      "id": "API_DELETE_01",
+      "name": "DELETE removes a post",
+      "method": "DELETE",
+      "endpoint": "/posts/1",
+      "expectedStatus": 200
+    }
+  ]
+}

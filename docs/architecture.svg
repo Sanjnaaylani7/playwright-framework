@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 780" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#37474f"/></marker>
+    <style>
+      .box{stroke:#37474f;stroke-width:1.5;rx:8}
+      .t{font-size:14px;font-weight:bold;fill:#102027;text-anchor:middle}
+      .s{font-size:11.5px;fill:#263238;text-anchor:middle}
+      .h{font-size:13px;font-weight:bold;fill:#fff}
+      .l{stroke:#37474f;stroke-width:1.6;fill:none;marker-end:url(#a)}
+    </style>
+  </defs>
+  <rect width="1000" height="780" fill="#fafafa"/>
+  <text x="500" y="30" class="t" style="font-size:20px">Playwright (JavaScript) Automation Framework - Architecture</text>
+
+  <!-- CI/CD -->
+  <rect x="20" y="50" width="960" height="100" rx="10" fill="#eceff1" stroke="#90a4ae"/>
+  <text x="40" y="72" style="font-size:13px;font-weight:bold;fill:#455a64">CI/CD</text>
+  <rect class="box" x="60" y="85" width="170" height="52" fill="#ffe0b2"/><text x="145" y="108" class="t">GitHub Repository</text><text x="145" y="125" class="s">push / webhook</text>
+  <rect class="box" x="300" y="85" width="170" height="52" fill="#ffe0b2"/><text x="385" y="108" class="t">Jenkins Pipeline</text><text x="385" y="125" class="s">Jenkinsfile (declarative)</text>
+  <rect class="box" x="540" y="85" width="170" height="52" fill="#bbdefb"/><text x="625" y="108" class="t">Docker Image</text><text x="625" y="125" class="s">Dockerfile (Playwright base)</text>
+  <rect class="box" x="780" y="85" width="170" height="52" fill="#c8e6c9"/><text x="865" y="108" class="t">Allure Report</text><text x="865" y="125" class="s">+ screenshots + logs</text>
+  <path class="l" d="M230 111 H298"/><path class="l" d="M470 111 H538"/><path class="l" d="M710 111 H778"/>
+
+  <!-- Container -->
+  <rect x="20" y="170" width="960" height="500" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" stroke-dasharray="7 4"/>
+  <text x="40" y="192" style="font-size:13px;font-weight:bold;fill:#1565c0">Docker container  (npm test  ->  scripts/run-ci.js)</text>
+
+  <!-- Test layer -->
+  <rect class="box" x="50" y="210" width="430" height="95" fill="#fff9c4"/>
+  <text x="265" y="232" class="t">Test Suites / Test Cases  (tests/)</text>
+  <text x="265" y="252" class="s">ui: login, inventory, cart, checkout, dialogs  (12 tests)</text>
+  <text x="265" y="270" class="s">api: posts GET / POST / PUT / PATCH / DELETE  (8 tests)</text>
+  <text x="265" y="288" class="s">imports test + expect from src/fixtures</text>
+
+  <rect class="box" x="520" y="210" width="430" height="95" fill="#f8bbd0"/>
+  <text x="735" y="232" class="t">Hooks &amp; Fixtures  (src/hooks, src/fixtures, src/setup)</text>
+  <text x="735" y="252" class="s">global setup / teardown   |   beforeAll / afterAll</text>
+  <text x="735" y="270" class="s">beforeEach / afterEach (screenshot on failure, attach logs)</text>
+  <text x="735" y="288" class="s">fixtures: page objects, api client, loggedInInventory</text>
+
+  <!-- POM + API -->
+  <rect class="box" x="50" y="345" width="430" height="110" fill="#d1c4e9"/>
+  <text x="265" y="367" class="t">Page Object Model  (src/pages)</text>
+  <text x="265" y="387" class="s">BasePage (generic actions)</text>
+  <text x="265" y="405" class="s">LoginPage | InventoryPage | CartPage | CheckoutPage</text>
+  <text x="265" y="423" class="s">login / logout, navigation, sorting, cart, checkout</text>
+  <text x="265" y="441" class="s">locators + actions encapsulated per page</text>
+
+  <rect class="box" x="520" y="345" width="430" height="110" fill="#d1c4e9"/>
+  <text x="735" y="367" class="t">API Layer  (src/api)</text>
+  <text x="735" y="387" class="s">ApiClient wraps Playwright APIRequestContext</text>
+  <text x="735" y="405" class="s">returns status, headers, body, response time</text>
+  <text x="735" y="423" class="s">schema validation (Ajv) in utils/schemaValidator</text>
+  <text x="735" y="441" class="s">data-driven cases from test-data/api</text>
+
+  <!-- Utilities -->
+  <rect class="box" x="50" y="495" width="430" height="80" fill="#b2dfdb"/>
+  <text x="265" y="517" class="t">Utilities Layer  (src/utils)</text>
+  <text x="265" y="537" class="s">logger (winston) | screenshotUtil | waitUtil (explicit waits)</text>
+  <text x="265" y="555" class="s">dialogUtil (alerts/popups) | dataReader | schemaValidator</text>
+
+  <rect class="box" x="520" y="495" width="205" height="80" fill="#c5e1a5"/>
+  <text x="622" y="517" class="t">Test Data (test-data/)</text>
+  <text x="622" y="537" class="s">ui/*.json  api/*.json</text>
+  <text x="622" y="555" class="s">schemas/*.schema.json</text>
+  <rect class="box" x="745" y="495" width="205" height="80" fill="#c5e1a5"/>
+  <text x="847" y="517" class="t">Configuration</text>
+  <text x="847" y="537" class="s">playwright.config.js</text>
+  <text x="847" y="555" class="s">src/config + .env (URLs, timeouts)</text>
+
+  <!-- Runner -->
+  <rect class="box" x="50" y="600" width="900" height="52" fill="#1565c0"/>
+  <text x="500" y="622" class="h" text-anchor="middle">Playwright Test Runner (projects: ui + api)  -  parallel workers, retries, auto-waiting</text>
+  <text x="500" y="640" style="font-size:11.5px;fill:#fff;text-anchor:middle">Reporters: Allure (allure-results) | HTML | console   -   Outputs: screenshots/, logs/, traces</text>
+
+  <!-- internal arrows -->
+  <path class="l" d="M480 257 H518"/>
+  <path class="l" d="M265 305 V343"/>
+  <path class="l" d="M735 305 V343"/>
+  <path class="l" d="M265 455 V493"/>
+  <path class="l" d="M735 455 V493"/>
+  <path class="l" d="M500 575 V598"/>
+  <path class="l" d="M625 137 V168"/>
+
+  <!-- AUT -->
+  <rect x="20" y="690" width="960" height="70" rx="10" fill="#eceff1" stroke="#90a4ae"/>
+  <text x="40" y="712" style="font-size:13px;font-weight:bold;fill:#455a64">Applications under test</text>
+  <rect class="box" x="180" y="720" width="260" height="32" fill="#ffccbc"/><text x="310" y="741" class="t">saucedemo.com (UI)</text>
+  <rect class="box" x="560" y="720" width="260" height="32" fill="#ffccbc"/><text x="690" y="741" class="t">jsonplaceholder.typicode.com (API)</text>
+  <path class="l" d="M310 652 V718" style="stroke-dasharray:5 3"/>
+  <path class="l" d="M690 652 V718" style="stroke-dasharray:5 3"/>
+</svg>

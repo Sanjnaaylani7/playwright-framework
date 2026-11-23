@@ -1,0 +1,12 @@
+{
+  "customer": { "firstName": "Soem", "lastName": "Tester", "postalCode": "75300" },
+  "products": ["Sauce Labs Backpack", "Sauce Labs Bike Light"],
+  "singleProduct": "Sauce Labs Onesie",
+  "expectedProductCount": 6,
+  "successMessage": "Thank you for your order!",
+  "validation": {
+    "title": "Missing first name is rejected",
+    "customer": { "firstName": "", "lastName": "Tester", "postalCode": "75300" },
+    "expectedError": "Error: First Name is required"
+  }
+}
