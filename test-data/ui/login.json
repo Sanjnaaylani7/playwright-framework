@@ -18,7 +18,10 @@
     "title": "Empty username shows validation error",
     "username": "",
     "password": "secret_sauce",
-    "expectedError": "Epic sadface: Username is required"
+    "expectedError": "Epic sadface: WRONG"
+    
+    
+
   },
   {
     "id": "TC_LOGIN_05",
