@@ -18,8 +18,7 @@
     "title": "Empty username shows validation error",
     "username": "",
     "password": "secret_sauce",
-    "expectedError": "Epic sadface: WRONG"
-    
+"expectedError": "Epic sadface: Username is required"    
     
 
   },
